@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Station - AquaTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4ff;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Water Drop Background Elements from image */
+        .drop {
+            position: absolute;
+            background: linear-gradient(180deg, #d4e9ff 0%, #ffffff 100%);
+            border-radius: 50% 50% 50% 50% / 15% 15% 85% 85%;
+            filter: blur(2px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .drop-top {
+            width: 400px;
+            height: 450px;
+            top: -150px;
+            right: -100px;
+            transform: rotate(-15deg);
+        }
+
+        .drop-bottom {
+            width: 300px;
+            height: 350px;
+            bottom: -100px;
+            left: 50px;
+            transform: rotate(10deg);
+        }
+
+        /* Main Registration Card */
+        .register-card {
+            background-color: #0d2167; /* Deep Navy from image */
+            width: 100%;
+            max-width: 400px;
+            padding: 3.5rem 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(13, 33, 103, 0.25);
+            z-index: 10;
+        }
+
+        .register-title {
+            color: white;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-align: left;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.025em;
+        }
+
+        .register-subtitle {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: left;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            border-radius: 0.6rem;
+            border: none;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #1d63ed; /* Vibrant blue from image */
+            color: white;
+            padding: 1rem;
+            border-radius: 0.6rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a56cc;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(13, 33, 103, 0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            z-index: 20;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Drops -->
+    <div class="drop drop-top"></div>
+    <div class="drop drop-bottom"></div>
+
+    <!-- Registration Card -->
+    <div class="register-card relative">
+        <div id="loading" class="loading-overlay">
+            <svg class="animate-spin h-10 w-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="font-bold tracking-widest text-xs uppercase">Setting up station...</p>
+        </div>
+
+        <h1 class="register-title">Register Station</h1>
+        <p class="register-subtitle">Enter your business details to continue.</p>
+        
+        <form id="registerForm">
+            <input type="text" id="stationName" class="input-field" placeholder="Name of the station" required>
+            <input type="text" id="contact" class="input-field" placeholder="Contact" required>
+            <input type="text" id="address" class="input-field" placeholder="Address" required>
+            
+            <button type="submit" class="btn-primary">
+                Create My Station
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const stationName = document.getElementById('stationName').value;
+            const loading = document.getElementById('loading');
+            
+            // Show loading state
+            loading.style.display = 'flex';
+
+            // Store info in session (optional, for the demo)
+            sessionStorage.setItem('station_name', stationName);
+
+            // Simulate server delay then redirect to the App.jsx portal
+            // In a real environment, you would navigate to the dashboard route
+            setTimeout(() => {
+                // To "connect" them in this environment, we redirect to the App portal.
+                // If this were a real web app, it would be window.location.href = '/dashboard';
+                alert("Station Registered Successfully! Redirecting to Dashboard...");
+                // Note: In this specific preview, we usually stay in the app, 
+                // but this logic represents the connection.
+            }, 1500);
+        });
+    </script>
+</body>
+</html>s
